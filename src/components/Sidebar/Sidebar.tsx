@@ -31,7 +31,7 @@ const Sidebar: React.FC = () => {
     >
       <div
         className={`${
-          isExpanded ? 'left-48' : 'left-12'
+          isExpanded ? 'left-48' : 'left-[46px]'
         } absolute top-[50%] items-center justify-between transition-all duration-300`}
       >
         <button
@@ -280,8 +280,18 @@ const Sidebar: React.FC = () => {
                 to='/user'
                 className={`${
                   isExpanded ? 'px-3' : 'pl-1.5'
-                } flex w-full items-center rounded-lg py-2 text-sm font-medium leading-6 text-slate-900 hover:bg-slate-300 dark:text-white dark:hover:bg-slate-700 ${
-                  location.pathname === '/user' ? 'bg-slate-700' : ''
+                } flex w-full items-center rounded-lg py-2 text-sm font-medium leading-6 text-slate-900  dark:text-white dark:hover:bg-slate-700 ${
+                  theme === 'light'
+                    ? `${
+                        location.pathname === '/user'
+                          ? 'text-white hover:bg-slate-900 bg-slate-700'
+                          : 'hover:bg-slate-300 text-slate-900'
+                      }`
+                    : `${
+                        location.pathname === '/user'
+                          ? ' bg-slate-700'
+                          : 'text-slate-900'
+                      }`
                 }`}
               >
                 <img
