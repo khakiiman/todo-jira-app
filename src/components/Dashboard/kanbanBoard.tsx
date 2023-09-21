@@ -1,7 +1,9 @@
-function kanbanBoard() {
+function KanbanBoard() {
   return (
-    <div>kanbanBoard</div>
-  )
+    <div className='flex justify-center items-center bg-slate-50 dark:bg-slate-900 w-full h-screen'>
+      Kanban Board
+    </div>
+  );
 }
 
-export default kanbanBoard
+export default KanbanBoard;

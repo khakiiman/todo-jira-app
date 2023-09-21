@@ -25,6 +25,6 @@
   "paths": {
     "@/*": ["./src/*"]
   },
-  "include": ["src"],
+  "include": ["src", "src/components/theme-provider.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
