@@ -155,10 +155,10 @@ export const users:User[] = [
 
 export const project:Project = {
   id: 104627,
-  name: 'singularity 1.0',
-  url: 'https://www.atlassian.com/software/jira',
+  name: 'SnappCarfix Task',
+  url: 'https://snappcarfix.com/',
   description:
-    'Plan, track, and manage your agile and software development projects in Jira. Customize your workflow, collaborate, and release great software.',
+    'This task is done by Iman K. Arvand to show skills in frontend dev stuff. For more information please visit https://imankhaki.netlify.app',
   category: 'software',
   createdAt: '2022-12-30T11:16:46.908Z',
   updatedAt: '2022-12-30T11:16:46.908Z',
