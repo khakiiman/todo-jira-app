@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
+import { Toaster } from './components/ui/toaster';
 import './App.css';
 
 import Main from './components/Dashboard/Main';
@@ -23,6 +24,7 @@ function App() {
           <Route path='/user' element={<User />} />
         </Routes>
       </main>
+      <Toaster />
     </ThemeProvider>
   );
 }

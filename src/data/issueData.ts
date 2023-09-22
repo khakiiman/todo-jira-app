@@ -155,11 +155,11 @@ export const users:User[] = [
 
 export const project:Project = {
   id: 104627,
-  name: 'SnappCarfix Task',
-  url: 'https://snappcarfix.com/',
+  name: 'Snapp Carfix Interview Task',
+  url: 'https://github.com/khakiiman/todo-jira-app',
   description:
-    'This task is done by Iman K. Arvand to show skills in frontend dev stuff. For more information please visit https://imankhaki.netlify.app',
-  category: 'software',
+    'This task is done by Iman K. Arvand to show skills in frontend dev stuff. Building a TodoList application using React with TypeScript and styling it with Tailwind CSS. The application should allow users to add, edit, and delete tasks, mark tasks as completed, and filter tasks based on their completion status. For more information about me, please visit https://imankhaki.netlify.app',
+  category: 'Software',
   createdAt: '2022-12-30T11:16:46.908Z',
   updatedAt: '2022-12-30T11:16:46.908Z',
 };

@@ -11,7 +11,7 @@ const Breadcrumbs: React.FC = () => {
       >
         <li className='flex'>
           <div className='flex items-center'>
-            <a href='#' className='text-slate-400 hover:text-slate-600 dark:text-slate-50 dark:hover:text-slate-400'>
+            <a href='#' className='text-slate-600 hover:text-slate-600 dark:text-slate-100 dark:hover:text-slate-400'>
               <HomeIcon className='h-5 w-5 flex-shrink-0' aria-hidden='true' />
             </a>
           </div>
@@ -29,7 +29,7 @@ const Breadcrumbs: React.FC = () => {
             </svg>
             <a
               href='#'
-              className='ml-4 text-sm font-medium text-slate-400 hover:text-slate-600 dark:text-slate-50 dark:hover:text-slate-400'
+              className='ml-4 text-sm font-medium text-slate-600 hover:text-slate-600 dark:text-slate-100 dark:hover:text-slate-400'
             >
               Projects
             </a>
@@ -49,7 +49,7 @@ const Breadcrumbs: React.FC = () => {
             </svg>
             <a
               href={project.url}
-              className='ml-4 text-sm font-medium text-slate-400 hover:text-slate-600 dark:text-slate-50 dark:hover:text-slate-400'
+              className='ml-4 text-sm font-medium text-slate-600 hover:text-slate-600 dark:text-slate-100 dark:hover:text-slate-400'
             >
               {project.name}
             </a>
@@ -67,7 +67,7 @@ const Breadcrumbs: React.FC = () => {
               <path d='M.293 0l22 22-22 22h1.414l22-22-22-22H.293z' />
             </svg>
           <div className='flex items-center ml-4'>
-            <a href='#' className='ml-4 text-sm font-medium text-slate-400 hover:text-slate-600 dark:text-slate-50 dark:hover:text-slate-400'>
+            <a href='#' className='ml-4 text-sm font-medium text-slate-500 hover:text-slate-600 dark:text-slate-300 dark:hover:text-slate-400'>
               Project Details
             </a>
           </div>

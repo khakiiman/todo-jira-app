@@ -21,22 +21,24 @@ import {
   FormDescription,
   FormMessage,
 } from '../../../@/components/ui/form';
+import { useToast } from '../ui/use-toast';
 
 import { ProjectFormSchema } from '../../models/Project';
 import type { ProjectForm } from '../../models/Project';
+import { RootState } from '../../store/store';
 import { updateProjectData } from '../../store/kanbanSlice';
 import Breadcrumbs from '../Breadcrumbs';
 
 import '../../../node_modules/react-quill/dist/quill.snow.css';
-import { RootState } from '../../store/store';
 
 const options = [
-  { value: 'software', label: 'Software' },
-  { value: 'marketing', label: 'Marketing' },
-  { value: 'business', label: 'Business' },
+  { value: 'Software', label: 'Software' },
+  { value: 'Marketing', label: 'Marketing' },
+  { value: 'Business', label: 'Business' },
 ];
 
 const ProjectSettings: React.FC = () => {
+  const { toast } = useToast();
 
   const kenbanState = useSelector((state: RootState) => state.kanban);
 
@@ -70,7 +72,11 @@ const ProjectSettings: React.FC = () => {
               <FormItem>
                 <FormLabel className='capitalize'>Project Name</FormLabel>
                 <FormControl className='mt-4'>
-                  <Input placeholder='Enter Project Name' {...field} className='border-slate-400' />
+                  <Input
+                    placeholder='Enter Project Name'
+                    {...field}
+                    className='border-slate-400'
+                  />
                 </FormControl>
               </FormItem>
             )}
@@ -82,7 +88,11 @@ const ProjectSettings: React.FC = () => {
               <FormItem>
                 <FormLabel className='capitalize'>Project URL</FormLabel>
                 <FormControl className=''>
-                  <Input placeholder='Enter Project URL' {...field} className='border-slate-400' />
+                  <Input
+                    placeholder='Enter Project URL'
+                    {...field}
+                    className='border-slate-400'
+                  />
                 </FormControl>
               </FormItem>
             )}
@@ -96,12 +106,12 @@ const ProjectSettings: React.FC = () => {
                   Project Description
                 </FormLabel>
                 <FormControl className=''>
-                <ReactQuill
-                theme='snow'
-                style={{ height: '10rem' }}
-                className='border-slate-400 pb-4'
-                {...field}
-              />
+                  <ReactQuill
+                    theme='snow'
+                    style={{ height: '10rem' }}
+                    className='border-slate-400 pb-4'
+                    {...field}
+                  />
                 </FormControl>
               </FormItem>
             )}
@@ -123,7 +133,11 @@ const ProjectSettings: React.FC = () => {
                   </FormControl>
                   <SelectContent>
                     {options.map((option, index) => (
-                      <SelectItem className='border-slate-400' value={option.value} key={index}>
+                      <SelectItem
+                        className='border-slate-400'
+                        value={option.value}
+                        key={index}
+                      >
                         {option.value}
                       </SelectItem>
                     ))}
@@ -139,6 +153,12 @@ const ProjectSettings: React.FC = () => {
           <Button
             type='submit'
             className='mt-[1rem] text-white hover:bg-slate-900 bg-slate-700'
+            onClick={() => {
+              toast({
+                title: "Project settings updated successfully",
+                description: new Date().toLocaleString(),
+              })
+            }}
           >
             Save Changes
           </Button>
