@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit"
-import kanbanSlice from "./kanbanSlice"
+import {kanbanSlice, KanbanState} from "./kanbanSlice"
 
 
 const store = configureStore({
@@ -9,3 +9,7 @@ const store = configureStore({
     })
 
 export default store
+
+export interface RootState {
+    kanban: KanbanState,
+}

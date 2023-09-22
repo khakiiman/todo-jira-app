@@ -1,4 +1,36 @@
-export const issueData = [
+interface Issue {
+  id: number;
+  title: string;
+  type: string;
+  status: string;
+  priority: string;
+  listPosition: number;
+  createdAt: string;
+  updatedAt: string;
+  userIds: number[];
+}
+
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  avatarUrl: string;
+  createdAt: string;
+  updatedAt: string;
+  projectId: number;
+}
+
+interface Project {
+  id?: number;
+  name: string;
+  url: string;
+  description: string;
+  category: string;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export const issueData:Issue[] = [
   {
     id: 851201,
     title:
@@ -91,73 +123,37 @@ export const issueData = [
   },
 ];
 
-export const users = [
+export const users:User[] = [
   {
-    id: 1,
-    name: 'Iman Khaki',
-    email: 'iman@jira.com',
-    avatarUrl: 'https://joesch.moe/api/v1/random?key=',
-    createdAt: '2022-06-30T11:16:46.904Z',
-    updatedAt: '2022-06-30T11:16:46.908Z',
-    projectId: 104627,
-  },
-  {
-    id: 2,
-    name: 'Hesam Zandian',
-    email: 'hesam@jira.com',
-    avatarUrl: 'https://joesch.moe/api/v1/random?key=',
-    createdAt: '2022-07-30T11:16:46.901Z',
-    updatedAt: '2022-07-30T11:16:46.908Z',
-    projectId: 104627,
-  },
-  {
-    id: 3,
-    name: 'Mehdi Karimi',
-    email: 'mehdi@jira.com',
-    avatarUrl: 'https://joesch.moe/api/v1/random?key=',
-    createdAt: '2022-08-30T11:16:46.899Z',
-    updatedAt: '2022-08-30T11:16:46.908Z',
-    projectId: 104627,
-  },
-  {
-    id: 4,
-    name: 'Ali Tahmasebi',
-    email: 'ali@jira.com',
-    avatarUrl: 'https://joesch.moe/api/v1/random?key=',
-    createdAt: '2022-12-30T11:16:46.899Z',
+    id: 314625,
+    name: 'Pickle Rick',
+    email: 'rick@jira.guest',
+    avatarUrl: 'https://i.ibb.co/7JM1P2r/picke-rick.jpg',
+    createdAt: '2022-12-30T11:16:46.904Z',
     updatedAt: '2022-12-30T11:16:46.908Z',
     projectId: 104627,
   },
   {
-    id: 5,
-    name: 'John Doe',
-    email: 'john@jira.com',
-    avatarUrl: 'https://joesch.moe/api/v1/random?key=',
-    createdAt: '2022-10-30T11:16:46.899Z',
-    updatedAt: '2022-10-30T11:16:46.908Z',
+    id: 314624,
+    name: 'Baby Yoda',
+    email: 'yoda@jira.guest',
+    avatarUrl: 'https://i.ibb.co/6n0hLML/baby-yoda.jpg',
+    createdAt: '2022-12-30T11:16:46.901Z',
+    updatedAt: '2022-12-30T11:16:46.908Z',
     projectId: 104627,
   },
   {
-    id: 6,
-    name: 'Sarah Jason',
-    email: 'sarah@jira.com',
-    avatarUrl: 'https://joesch.moe/api/v1/random?key=',
-    createdAt: '2022-09-30T11:16:46.899Z',
-    updatedAt: '2022-09-30T11:16:46.908Z',
-    projectId: 104627,
-  },
-  {
-    id: 7,
-    name: 'Hadi Salehi',
-    email: 'hadi@jira.com',
-    avatarUrl: 'https://joesch.moe/api/v1/random?key=',
-    createdAt: '2022-11-30T11:16:46.899Z',
-    updatedAt: '2022-11-30T11:16:46.908Z',
+    id: 314623,
+    name: 'Lord Gaben',
+    email: 'gaben@jira.guest',
+    avatarUrl: 'https://i.ibb.co/6RJ5hq6/gaben.jpg',
+    createdAt: '2022-12-30T11:16:46.899Z',
+    updatedAt: '2022-12-30T11:16:46.908Z',
     projectId: 104627,
   },
 ];
 
-export const project = {
+export const project:Project = {
   id: 104627,
   name: 'singularity 1.0',
   url: 'https://www.atlassian.com/software/jira',

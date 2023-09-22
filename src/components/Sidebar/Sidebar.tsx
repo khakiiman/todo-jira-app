@@ -36,7 +36,7 @@ const Sidebar: React.FC = () => {
       >
         <button
           onClick={toggleSidebar}
-          className='text-slate-900 dark:text-white bg-white dark:bg-slate-900 focus:outline-none w-7 h-7 flex justify-center items-center border-slate-900 dark:border-white border rounded-full'
+          className='text-slate-900 dark:text-white bg-slate-100 dark:bg-slate-900 focus:outline-none w-7 h-7 flex justify-center items-center border-slate-900 dark:border-white border rounded-full'
         >
           {isExpanded ? (
             <FontAwesomeIcon icon={faChevronLeft} className='w-3 h-3' />
