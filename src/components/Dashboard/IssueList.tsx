@@ -47,7 +47,7 @@ function IssueList() {
       (user) =>
         issueList.userIds.includes(user.id) && (
           <img
-            className='flex w-10 rounded-full border border-slate-900 dark:border dark:border-slate-100'
+            className='flex w-8 rounded-full border border-slate-900 dark:border dark:border-slate-100'
             src={user.avatarUrl}
             alt=''
           />
@@ -92,7 +92,7 @@ function IssueList() {
                         >
                           {(provided: any) => (
                             <div
-                              className='flex flex-col bg-slate-100 dark:bg-slate-900 p-4 rounded-lg mb-[0.5rem]'
+                              className='flex flex-col bg-slate-100 dark:bg-slate-800 p-4 rounded-lg mb-[0.5rem]'
                               {...provided.draggableProps}
                               {...provided.dragHandleProps}
                               ref={provided.innerRef}

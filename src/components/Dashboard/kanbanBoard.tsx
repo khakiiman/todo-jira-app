@@ -5,6 +5,7 @@ import { useToast } from '../ui/use-toast';
 import { changeSearchTerm } from '../../store/kanbanSlice';
 import { Button } from '../../../@/components/ui/button';
 import { Input } from '../../../@/components/ui/input';
+import { Card } from '../ui/card';
 import Breadcrumbs from '../Breadcrumbs';
 import NewIssueModal from '../NewIssueModal';
 import IssueList from './IssueList';
@@ -51,21 +52,9 @@ const KanbanBoard: React.FC = () => {
     };
   }, [dispatch, filterValue]);
 
-  // const kenbanState = useSelector((state: RootState) => state.kanban);
-
-  // const form = useForm<ProjectForm>({
-  //   resolver: zodResolver(ProjectFormSchema),
-  //   defaultValues: kenbanState.projectData,
-  // });
-
-  // const onSubmit: SubmitHandler<ProjectForm> = () => {
-  //   dispatch(updateProjectData(form.getValues()));
-  //   console.log(form.getValues());
-  // };
-
   return (
-    <div className='flex w-full h-screen py-8 px-8 dark:text-white justify-center bg-slate-100 dark:bg-slate-900'>
-      <div className='w-full space-y-10  overflow-y-scroll scrollbar-hide'>
+    <div className='flex w-full h-screen py-8 px-8 dark:text-white justify-center bg-slate-300 dark:bg-slate-700'>
+      <Card className='w-full border border-slate-500 dark:border dark:border-slate-100 px-8 py-8 space-y-10 overflow-y-scroll scrollbar-hide'>
         <Breadcrumbs page='Kanban Board' />
         <h1 className='text-2xl font-bold capitalize dark:text-gray-300'>
           Kanban Board
@@ -116,12 +105,13 @@ const KanbanBoard: React.FC = () => {
             Create New Issue
           </Button>
         </div>
+  
         {/* issue list component */}
         <IssueList />
 
         {/* new issue modal */}
         <NewIssueModal />
-      </div>
+      </Card>
     </div>
   );
 };
