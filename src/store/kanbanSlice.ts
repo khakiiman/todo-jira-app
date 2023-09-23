@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { issueData, project } from '../data/issueData';
+import { issueData, project, Issue, Project } from '../data/issueData';
 
 export interface KanbanState {
   searchTerm: string;
-  data: typeof issueData;
-  projectData: typeof project;
+  data: Issue[];
+  projectData: Project;
 }
 
 const initialState: KanbanState = {
@@ -31,18 +31,19 @@ export const kanbanSlice = createSlice({
         return data;
       });
     },
-    // updateIssueData: (state, action: PayloadAction<{ id: number; type: string;}>) => {
-    //   state.data.map((data) => {
-    //     if (data.id === action.payload.id) {
-    //       data[action.payload.type] = action.payload.type;
-    //       data.recentlyUpdated = true;
-    //     }
-    //     return data;
-    //   });
-    // },
-    // addNewIssue: (state, action: PayloadAction<typeof issueData>) => {
-    //   state.data.push(action.payload);
-    // },
+    updateIssueData: (state, action: PayloadAction<{ id: number; type: string;}>) => {
+      state.data.map((data) => {
+        if (data.id === action.payload.id) {
+          data.type = action.payload.type;
+          // data.recentlyUpdated = true;
+        }
+        return data;
+      });
+    },
+
+    addNewIssue: (state, action: PayloadAction<Issue>) => {
+      state.data.push(action.payload);
+    },
   },
 });
 
@@ -50,7 +51,7 @@ export const {
   updateProjectData,
   changeSearchTerm,
   sortDragData,
-  // updateIssueData,
-  // addNewIssue,
+  updateIssueData,
+  addNewIssue,
 } = kanbanSlice.actions;
 export default kanbanSlice;

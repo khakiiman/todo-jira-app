@@ -27,7 +27,7 @@ const Sidebar: React.FC = () => {
     <div
       className={`${
         isExpanded ? 'w-64' : 'w-16'
-      } flex flex-col gap-y-5 overflow-y-auto bg-slate-100 dark:bg-slate-900 h-screen transition-all duration-300`}
+      } flex flex-col gap-y-5 bg-slate-100 dark:bg-slate-900 h-screen transition-all duration-300`}
     >
       <div
         className={`${
@@ -296,7 +296,7 @@ const Sidebar: React.FC = () => {
               >
                 <img
                   className='h-8 w-8 rounded-full bg-yellow-500'
-                  src='https://joesch.moe/api/v1/random?key='
+                  src='https://joesch.moe/api/v1/jai'
                   alt=''
                 />
                 <span

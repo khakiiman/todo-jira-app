@@ -40,14 +40,14 @@ const options = [
 const ProjectSettings: React.FC = () => {
   const { toast } = useToast();
 
+  const dispatch = useDispatch();
+
   const kenbanState = useSelector((state: RootState) => state.kanban);
 
   const form = useForm<ProjectForm>({
     resolver: zodResolver(ProjectFormSchema),
     defaultValues: kenbanState.projectData,
   });
-
-  const dispatch = useDispatch();
 
   const onSubmit: SubmitHandler<ProjectForm> = () => {
     dispatch(updateProjectData(form.getValues()));
@@ -61,8 +61,10 @@ const ProjectSettings: React.FC = () => {
           onSubmit={form.handleSubmit(onSubmit)}
           className='py-8 px-16 max-w-4xl w-full space-y-10 dark:text-white'
         >
-          <Breadcrumbs />
-          <FormLabel className='text-xl font-semibold dark:text-gray-300'>
+          <div>
+            <Breadcrumbs page='Project Details' />
+          </div>
+          <FormLabel className='text-2xl font-bold capitalize dark:text-gray-300'>
             <h2 className='capitalize'>Project Details</h2>
           </FormLabel>
           <FormField
@@ -152,12 +154,12 @@ const ProjectSettings: React.FC = () => {
           />
           <Button
             type='submit'
-            className='mt-[1rem] text-white hover:bg-slate-900 bg-slate-700'
+            className='mt-[1rem] text-white hover:bg-slate-900 bg-slate-700 dark:text-slate-900 dark:bg-slate-100 dark:hover:bg-slate-300'
             onClick={() => {
               toast({
-                title: "Project settings updated successfully",
+                title: 'Project settings updated successfully',
                 description: new Date().toLocaleString(),
-              })
+              });
             }}
           >
             Save Changes

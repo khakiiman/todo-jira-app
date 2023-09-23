@@ -1,9 +1,129 @@
-function KanbanBoard() {
+import React from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useToast } from '../ui/use-toast';
+import { changeSearchTerm } from '../../store/kanbanSlice';
+import { Button } from '../../../@/components/ui/button';
+import { Input } from '../../../@/components/ui/input';
+import Breadcrumbs from '../Breadcrumbs';
+import NewIssueModal from '../NewIssueModal';
+import IssueList from './IssueList';
+
+// import ReactQuill from 'react-quill';
+// import { SubmitHandler, useForm } from 'react-hook-form';
+// import { zodResolver } from '@hookform/resolvers/zod';
+// import {
+//   Select,
+//   SelectContent,
+//   SelectItem,
+//   SelectTrigger,
+//   SelectValue,
+// } from '../../../@/components/ui/select';
+// import {
+//   Form,
+//   FormControl,
+//   FormItem,
+//   FormLabel,
+//   FormField,
+//   FormDescription,
+//   FormMessage,
+// } from '../../../@/components/ui/form';
+
+// import { RootState } from '../../store/store';
+// import { ProjectFormSchema } from '../../models/Project';
+// import type { ProjectForm } from '../../models/Project';
+
+import '../../../node_modules/react-quill/dist/quill.snow.css';
+
+const KanbanBoard: React.FC = () => {
+  const { toast } = useToast();
+  const [filterValue, setFilteredValue] = useState('');
+  const [isModelOpen, setModalState] = useState(false);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      dispatch(changeSearchTerm(filterValue));
+    }, 300);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [dispatch, filterValue]);
+
+  // const kenbanState = useSelector((state: RootState) => state.kanban);
+
+  // const form = useForm<ProjectForm>({
+  //   resolver: zodResolver(ProjectFormSchema),
+  //   defaultValues: kenbanState.projectData,
+  // });
+
+  // const onSubmit: SubmitHandler<ProjectForm> = () => {
+  //   dispatch(updateProjectData(form.getValues()));
+  //   console.log(form.getValues());
+  // };
+
   return (
-    <div className='flex justify-center items-center bg-slate-50 dark:bg-slate-900 w-full h-screen'>
-      Kanban Board
+    <div className='flex w-full h-screen py-8 px-8 dark:text-white justify-center bg-slate-100 dark:bg-slate-900'>
+      <div className='w-full space-y-10  overflow-y-scroll scrollbar-hide'>
+        <Breadcrumbs page='Kanban Board' />
+        <h1 className='text-2xl font-bold capitalize dark:text-gray-300'>
+          Kanban Board
+        </h1>
+        <div className='flex gap-12'>
+          <div className='flex items-center gap-4'>
+            <Input
+              type='search'
+              className='px-2 py-2 w-[230px] border border-slate-400 dark:border dark:border-slate-400'
+              placeholder='Search Issues...'
+              value={filterValue}
+              onChange={(event) => {
+                setFilteredValue(event.target.value);
+              }}
+            />
+            <Button
+              type='submit'
+              className='text-white hover:bg-slate-900 bg-slate-700 dark:text-slate-900 dark:bg-slate-100 dark:hover:bg-slate-300'
+              onClick={() => {
+                toast({
+                  title: 'Not implemented yet!',
+                  description: 'So Sorry! 😥',
+                });
+              }}
+            >
+              Only My Issues
+            </Button>
+            <Button
+              type='submit'
+              className='text-white hover:bg-slate-900 bg-slate-700 dark:text-slate-900 dark:bg-slate-100 dark:hover:bg-slate-300'
+              onClick={() => {
+                toast({
+                  title: 'Not implemented yet!',
+                  description: 'So Sorry! 😥',
+                });
+              }}
+            >
+              Recently Updated
+            </Button>
+          </div>
+          <Button
+            type='submit'
+            className='text-white hover:bg-slate-900 bg-slate-700 dark:text-slate-900 dark:bg-slate-100 dark:hover:bg-slate-300'
+            onClick={() => {
+              setModalState(true);
+            }}
+          >
+            Create New Issue
+          </Button>
+        </div>
+        {/* issue list component */}
+        <IssueList />
+
+        {/* new issue modal */}
+        <NewIssueModal />
+      </div>
     </div>
   );
-}
+};
 
 export default KanbanBoard;

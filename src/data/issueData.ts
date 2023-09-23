@@ -1,4 +1,4 @@
-interface Issue {
+export interface Issue {
   id: number;
   title: string;
   type: string;
@@ -10,7 +10,7 @@ interface Issue {
   userIds: number[];
 }
 
-interface User {
+export interface User {
   id: number;
   name: string;
   email: string;
@@ -20,7 +20,7 @@ interface User {
   projectId: number;
 }
 
-interface Project {
+export interface Project {
   id?: number;
   name: string;
   url: string;
@@ -126,27 +126,27 @@ export const issueData:Issue[] = [
 export const users:User[] = [
   {
     id: 314625,
-    name: 'Pickle Rick',
-    email: 'rick@jira.guest',
-    avatarUrl: 'https://i.ibb.co/7JM1P2r/picke-rick.jpg',
+    name: 'Jodi Rick',
+    email: 'jodi@jira.com',
+    avatarUrl: 'https://joesch.moe/api/v1/jodi',
     createdAt: '2022-12-30T11:16:46.904Z',
     updatedAt: '2022-12-30T11:16:46.908Z',
     projectId: 104627,
   },
   {
     id: 314624,
-    name: 'Baby Yoda',
-    email: 'yoda@jira.guest',
-    avatarUrl: 'https://i.ibb.co/6n0hLML/baby-yoda.jpg',
+    name: 'James Yoda',
+    email: 'james@jira.com',
+    avatarUrl: 'https://joesch.moe/api/v1/james',
     createdAt: '2022-12-30T11:16:46.901Z',
     updatedAt: '2022-12-30T11:16:46.908Z',
     projectId: 104627,
   },
   {
     id: 314623,
-    name: 'Lord Gaben',
-    email: 'gaben@jira.guest',
-    avatarUrl: 'https://i.ibb.co/6RJ5hq6/gaben.jpg',
+    name: 'Joe Gaben',
+    email: 'joe@jira.com',
+    avatarUrl: 'https://joesch.moe/api/v1/joe',
     createdAt: '2022-12-30T11:16:46.899Z',
     updatedAt: '2022-12-30T11:16:46.908Z',
     projectId: 104627,
