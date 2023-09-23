@@ -1,7 +1,7 @@
 import { Button } from '../ui/button';
 import { Label } from '../ui/label';
 import { Card } from '../ui/card';
-import DeveloperImage from '@/assets/me.jpg'; // Import your developer image
+import DeveloperImage from '@/assets/me.jpg';
 
 function Main() {
   return (

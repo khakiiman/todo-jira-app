@@ -9,31 +9,6 @@ import { Card } from '../ui/card';
 import Breadcrumbs from '../Breadcrumbs';
 import NewIssueModal from '../NewIssueModal';
 import IssueList from './IssueList';
-
-// import ReactQuill from 'react-quill';
-// import { SubmitHandler, useForm } from 'react-hook-form';
-// import { zodResolver } from '@hookform/resolvers/zod';
-// import {
-//   Select,
-//   SelectContent,
-//   SelectItem,
-//   SelectTrigger,
-//   SelectValue,
-// } from '../../../@/components/ui/select';
-// import {
-//   Form,
-//   FormControl,
-//   FormItem,
-//   FormLabel,
-//   FormField,
-//   FormDescription,
-//   FormMessage,
-// } from '../../../@/components/ui/form';
-
-// import { RootState } from '../../store/store';
-// import { ProjectFormSchema } from '../../models/Project';
-// import type { ProjectForm } from '../../models/Project';
-
 import '../../../node_modules/react-quill/dist/quill.snow.css';
 
 const KanbanBoard: React.FC = () => {
