@@ -181,33 +181,6 @@ const Sidebar: React.FC = () => {
                 </li>
                 <li>
                   <NavLink
-                    to='/todo'
-                    className={`flex items-center rounded-lg px-3 py-2 text-slate-900 dark:text-white  dark:hover:bg-slate-700 ${
-                      theme === 'light'
-                        ? `${
-                            location.pathname === '/todo'
-                              ? 'text-white hover:bg-slate-900 bg-slate-700'
-                              : 'hover:bg-slate-300 text-slate-900'
-                          }`
-                        : `${
-                            location.pathname === '/todo'
-                              ? ' bg-slate-700'
-                              : 'text-slate-900'
-                          }`
-                    }`}
-                  >
-                    <FontAwesomeIcon icon={faTasks} className='h-5 w-5' />
-                    <span
-                      className={`${
-                        isExpanded ? 'ml-3' : 'hidden'
-                      } flex-1 whitespace-nowrap uppercase transition-all duration-300`}
-                    >
-                      Todo
-                    </span>
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
                     to='/settings'
                     className={`flex items-center rounded-lg px-3 py-2 text-slate-900 dark:text-white  dark:hover:bg-slate-700 ${
                       theme === 'light'
@@ -230,6 +203,33 @@ const Sidebar: React.FC = () => {
                       } flex-1 whitespace-nowrap uppercase transition-all duration-300`}
                     >
                       Settings
+                    </span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to='/todo'
+                    className={`flex items-center rounded-lg px-3 py-2 text-slate-900 dark:text-white  dark:hover:bg-slate-700 ${
+                      theme === 'light'
+                        ? `${
+                            location.pathname === '/todo'
+                              ? 'text-white hover:bg-slate-900 bg-slate-700'
+                              : 'hover:bg-slate-300 text-slate-900'
+                          }`
+                        : `${
+                            location.pathname === '/todo'
+                              ? ' bg-slate-700'
+                              : 'text-slate-900'
+                          }`
+                    }`}
+                  >
+                    <FontAwesomeIcon icon={faTasks} className='h-5 w-5' />
+                    <span
+                      className={`${
+                        isExpanded ? 'ml-3' : 'hidden'
+                      } flex-1 whitespace-nowrap uppercase transition-all duration-300`}
+                    >
+                      Todo
                     </span>
                   </NavLink>
                 </li>
