@@ -59,7 +59,7 @@ const KanbanBoard: React.FC = () => {
         <h1 className='text-2xl font-bold capitalize dark:text-gray-300'>
           Kanban Board
         </h1>
-        <div className='flex gap-12'>
+        <div className='flex items-center justify-between'>
           <div className='flex items-center gap-4'>
             <Input
               type='search'

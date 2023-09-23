@@ -72,7 +72,7 @@ function IssueList() {
             <Droppable droppableId={`${issue}`} key={issue}>
               {(provided: any) => (
                 <div
-                  className='w-3/4 bg-gray-700 m-[1.5rem] p-3 rounded-lg'
+                  className='w-full bg-gray-700 m-2 p-3 rounded-lg'
                   {...provided.droppableProps}
                   ref={provided.innerRef}
                 >
@@ -92,7 +92,7 @@ function IssueList() {
                         >
                           {(provided: any) => (
                             <div
-                              className='flex flex-col bg-slate-100 dark:bg-slate-800 p-4 rounded-lg mb-[0.5rem]'
+                              className='flex flex-col bg-slate-100 dark:bg-slate-900 p-4 rounded-lg mb-[0.5rem]'
                               {...provided.draggableProps}
                               {...provided.dragHandleProps}
                               ref={provided.innerRef}

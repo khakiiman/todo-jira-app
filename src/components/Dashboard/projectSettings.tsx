@@ -60,7 +60,7 @@ const ProjectSettings: React.FC = () => {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className=' max-w-4xl py-4 w-full dark:text-white'
+          className=' max-w-4xl py-8 -px-8 w-full dark:text-white'
         >
           <Card className='border border-slate-500 dark:border dark:border-slate-100 py-8 px-16 space-y-8 bg-slate-100 dark:bg-slate-900'>
             <div>
