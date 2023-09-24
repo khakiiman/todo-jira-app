@@ -61,6 +61,7 @@ const Sidebar: React.FC = () => {
           <NavLink
             to='/'
             className='flex py-6 px-3 items-center gap-2 transition-all duration-300'
+            onClick={() => setIsExpanded(!isExpanded)}
           >
             {theme === 'dark' ? (
               <svg
@@ -161,17 +162,29 @@ const Sidebar: React.FC = () => {
                 <li>
                   <NavLink
                     to='/board'
-                    className={`flex items-center rounded-lg px-3 py-2 text-slate-900 dark:text-white  dark:hover:bg-slate-700 ${
+                    className={`flex items-center rounded-lg px-3 py-2 text-slate-900 dark:text-white dark:hover:bg-slate-700 ${
                       theme === 'light'
                         ? `${
                             location.pathname === '/board'
-                              ? 'text-white hover:bg-slate-900 bg-slate-700'
-                              : 'hover:bg-slate-300 text-slate-900'
+                              ? `${
+                                  isExpanded
+                                    ? 'hover:bg-slate-900 bg-slate-700'
+                                    : ''
+                                } text-white md:hover:bg-slate-900 md:bg-slate-700`
+                              : `${
+                                  isExpanded
+                                    ? 'hover:bg-slate-300 text-slate-900'
+                                    : ''
+                                } md:hover:bg-slate-300 md:text-slate-900`
                           }`
                         : `${
                             location.pathname === '/board'
-                              ? ' bg-slate-700'
-                              : 'text-slate-900'
+                              ? `${
+                                  isExpanded ? 'bg-slate-700' : ''
+                                } md:bg-slate-700`
+                              : `${
+                                  isExpanded ? 'text-slate-900' : ''
+                                } md:text-slate-900`
                           }`
                     }`}
                     onClick={() => setIsExpanded(!isExpanded)}
@@ -189,17 +202,29 @@ const Sidebar: React.FC = () => {
                 <li>
                   <NavLink
                     to='/settings'
-                    className={`flex items-center rounded-lg px-3 py-2 text-slate-900 dark:text-white  dark:hover:bg-slate-700 ${
+                    className={`flex items-center rounded-lg px-3 py-2 text-slate-900 dark:text-white dark:hover:bg-slate-700 ${
                       theme === 'light'
                         ? `${
                             location.pathname === '/settings'
-                              ? 'text-white hover:bg-slate-900 bg-slate-700'
-                              : 'hover:bg-slate-300 text-slate-900'
+                              ? `${
+                                  isExpanded
+                                    ? 'hover:bg-slate-900 bg-slate-700'
+                                    : ''
+                                } text-white md:hover:bg-slate-900 md:bg-slate-700`
+                              : `${
+                                  isExpanded
+                                    ? 'hover:bg-slate-300 text-slate-900'
+                                    : ''
+                                } md:hover:bg-slate-300 md:text-slate-900`
                           }`
                         : `${
                             location.pathname === '/settings'
-                              ? ' bg-slate-700'
-                              : 'text-slate-900'
+                              ? `${
+                                  isExpanded ? 'bg-slate-700' : ''
+                                } md:bg-slate-700`
+                              : `${
+                                  isExpanded ? 'text-slate-900' : ''
+                                } md:text-slate-900`
                           }`
                     }`}
                     onClick={() => setIsExpanded(!isExpanded)}
@@ -217,17 +242,29 @@ const Sidebar: React.FC = () => {
                 <li>
                   <NavLink
                     to='/todo'
-                    className={`flex items-center rounded-lg px-3 py-2 text-slate-900 dark:text-white  dark:hover:bg-slate-700 ${
+                    className={`flex items-center rounded-lg px-3 py-2 text-slate-900 dark:text-white dark:hover:bg-slate-700 ${
                       theme === 'light'
                         ? `${
                             location.pathname === '/todo'
-                              ? 'text-white hover:bg-slate-900 bg-slate-700'
-                              : 'hover:bg-slate-300 text-slate-900'
+                              ? `${
+                                  isExpanded
+                                    ? 'hover:bg-slate-900 bg-slate-700'
+                                    : ''
+                                } text-white md:hover:bg-slate-900 md:bg-slate-700`
+                              : `${
+                                  isExpanded
+                                    ? 'hover:bg-slate-300 text-slate-900'
+                                    : ''
+                                } md:hover:bg-slate-300 md:text-slate-900`
                           }`
                         : `${
                             location.pathname === '/todo'
-                              ? ' bg-slate-700'
-                              : 'text-slate-900'
+                              ? `${
+                                  isExpanded ? 'bg-slate-700' : ''
+                                } md:bg-slate-700`
+                              : `${
+                                  isExpanded ? 'text-slate-900' : ''
+                                } md:text-slate-900`
                           }`
                     }`}
                     onClick={() => setIsExpanded(!isExpanded)}
@@ -293,13 +330,25 @@ const Sidebar: React.FC = () => {
                   theme === 'light'
                     ? `${
                         location.pathname === '/user'
-                          ? 'text-white hover:bg-slate-900 bg-slate-700'
-                          : 'hover:bg-slate-300 text-slate-900'
+                          ? `${
+                              isExpanded
+                                ? 'hover:bg-slate-900 bg-slate-700'
+                                : ''
+                            } text-white md:hover:bg-slate-900 md:bg-slate-700`
+                          : `${
+                              isExpanded
+                                ? 'hover:bg-slate-300 text-slate-900'
+                                : ''
+                            } md:hover:bg-slate-300 md:text-slate-900`
                       }`
                     : `${
                         location.pathname === '/user'
-                          ? ' bg-slate-700'
-                          : 'text-slate-900'
+                          ? `${
+                              isExpanded ? 'bg-slate-700' : ''
+                            } md:bg-slate-700`
+                          : `${
+                              isExpanded ? 'text-slate-900' : ''
+                            } md:text-slate-900`
                       }`
                 }`}
                 onClick={() => setIsExpanded(!isExpanded)}

@@ -11,7 +11,7 @@ import Breadcrumbs from '../Breadcrumbs';
 
 const Todo: React.FC = () => {
   return (
-    <div className='flex justify-center md:py-8 w-full min-h-screen bg-slate-300 dark:bg-slate-700 dark:text-slate-100'>
+    <div className='flex justify-center md:px-16 md:py-8 w-full min-h-screen bg-slate-300 dark:bg-slate-700 dark:text-slate-100'>
       <Card className='flex flex-col bg-slate-100 rounded-none md:rounded-xl md:justify-between px-8 md:px-0 py-8 md:border md:border-slate-500 md:dark:border md:dark:border-slate-100 dark:bg-slate-900 gap-2 md:gap-0'>
         <div>
           <Breadcrumbs page='Todo' />
@@ -27,9 +27,8 @@ const Todo: React.FC = () => {
           <Label className='text-xl md:text-2xl font-bold text-center md:text-left'>Todo App Task</Label>
           <Label className='text-slate-500 text-sm md:text-md text-center md:text-left'>By Iman k Arvand</Label>
           <Label className='leading-normal text-md text-center md:text-left'>
-            I have a Todo App named 'TechInsight', along with this Kanban App
-            that you can find on the web, and the code is available on my GitHub
-            repository named 'blog-for-ESP.' The Blog App is a web application
+            I've completed a task named 'TechInsight Todo App', alongside with this Kanban App
+            that you can reach it using below links. Additionally, there's a repository named 'blog-for-ESP.' This Todo App is a web application
             that enables users to read posts from the JsonPlaceHolder API and
             create their own blog posts. It provides a user-friendly interface
             for browsing, searching, deleting, and sorting blog content.

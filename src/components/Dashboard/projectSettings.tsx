@@ -59,7 +59,7 @@ const ProjectSettings: React.FC = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className='flex justify-center md:py-8 w-full h-min-screen px-24 bg-slate-300 dark:bg-slate-700 dark:text-slate-100'
+        className='flex justify-center md:py-8 w-full h-min-screen px-16 bg-slate-300 dark:bg-slate-700 dark:text-slate-100'
       >
         <Card className='flex flex-col rounded-none md:rounded-xl py-4 px-8 md:border md:border-slate-500 md:dark:border md:dark:border-slate-100 gap-8 bg-slate-100 dark:bg-slate-900'>
           <div>
