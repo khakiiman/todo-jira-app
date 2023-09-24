@@ -3,16 +3,16 @@ import ReactQuill from 'react-quill';
 import { useDispatch, useSelector } from 'react-redux';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '../../../@/components/ui/button';
+import { Button } from '../ui/button';
 import { Card } from '../ui/card';
-import { Input } from '../../../@/components/ui/input';
+import { Input } from '../ui/input';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '../../../@/components/ui/select';
+} from '../ui/select';
 import {
   Form,
   FormControl,
@@ -21,7 +21,7 @@ import {
   FormField,
   FormDescription,
   FormMessage,
-} from '../../../@/components/ui/form';
+} from '../ui/form';
 import { useToast } from '../ui/use-toast';
 
 import { ProjectFormSchema } from '../../models/Project';

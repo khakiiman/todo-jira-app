@@ -9,7 +9,7 @@ import ProjectSetting from './components/Dashboard/ProjectSettings';
 import User from './components/Dashboard/User';
 
 import Sidebar from './components/Sidebar/Sidebar';
-import { ThemeProvider } from './components/theme-provider';
+import { ThemeProvider } from './components/ThemeProvider';
 
 function App() {
   return (

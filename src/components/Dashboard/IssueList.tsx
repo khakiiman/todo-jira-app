@@ -50,6 +50,7 @@ function IssueList() {
             className='flex w-8 rounded-full border border-slate-900 dark:border dark:border-slate-100'
             src={user.avatarUrl}
             alt=''
+            key={user.id}
           />
         )
     );

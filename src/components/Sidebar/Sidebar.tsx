@@ -9,10 +9,10 @@ import {
   faChevronRight,
 } from '@fortawesome/free-solid-svg-icons';
 
-import { useTheme } from '../theme-provider';
+import { useTheme } from '../ThemeProvider';
 import { Moon, Sun } from 'lucide-react';
-import { Label } from '../../../@/components/ui/label';
-import { Toggle } from '../../../@/components/ui/toggle';
+import { Label } from '../ui/label';
+import { Toggle } from '../ui/toggle';
 
 const Sidebar: React.FC = () => {
   const [isExpanded, setIsExpanded] = useState<boolean>(true);

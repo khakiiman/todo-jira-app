@@ -19,12 +19,14 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    /* Paths */
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
   },
-  "baseUrl": ".",
-  "paths": {
-    "@/*": ["./src/*"]
-  },
-  "include": ["src", "src/components/theme-provider.tsx"],
+  "include": ["src", "src/components/ThemeProvider.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

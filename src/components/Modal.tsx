@@ -5,13 +5,13 @@ import ReactQuill from 'react-quill';
 import { useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faCheckSquare,
-  faBook,
-  faExclamationCircle,
-  faTrashAlt,
-  faTimes,
   faSortUp,
   faSortDown,
+  // faCheckSquare,
+  // faBook,
+  // faExclamationCircle,
+  // faTrashAlt,
+  // faTimes,
   // faTrashCan,
   // faXmark,
   // faUpLong,
@@ -21,8 +21,8 @@ import {
 import { users } from '../data/issueData';
 import { updateIssueData } from '../store/kanbanSlice';
 
-import { Button } from '../components/ui/button';
-import { Input } from '../components/ui/input';
+import { Button } from './ui/button';
+import { Input } from './ui/input';
 import {
   Dialog,
   DialogContent,
@@ -30,8 +30,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '../components/ui/dialog';
-import { Label } from '../components/ui/label';
+} from './ui/dialog';
+import { Label } from './ui/label';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -39,7 +39,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '../components/ui/dropdown-menu';
+} from './ui/dropdown-menu';
 
 // styles
 import '../../node_modules/react-quill/dist/quill.snow.css';
