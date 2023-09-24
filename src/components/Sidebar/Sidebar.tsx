@@ -15,9 +15,9 @@ import { Label } from '../ui/label';
 import { Toggle } from '../ui/toggle';
 
 const Sidebar: React.FC = () => {
-  const [isExpanded, setIsExpanded] = useState<boolean>(true);
-  const location = useLocation();
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const { theme, setTheme } = useTheme();
+  const location = useLocation();
 
   const toggleSidebar = () => {
     setIsExpanded(!isExpanded);
@@ -26,17 +26,19 @@ const Sidebar: React.FC = () => {
   return (
     <div
       className={`${
-        isExpanded ? 'w-64' : 'w-16'
-      } flex flex-col gap-y-5 bg-slate-100 dark:bg-slate-900 h-screen transition-all duration-300`}
+        isExpanded ? 'w-64' : 'w-4 md:w-16'
+      } flex fixed md:relative flex-col h-screen bg-slate-100 dark:bg-slate-900 transition-all duration-300 ease-in-out`}
     >
       <div
         className={`${
-          isExpanded ? 'left-48' : 'left-[46px]'
-        } absolute top-[50%] items-center justify-between transition-all duration-300`}
+          isExpanded ? '' : ''
+        } items-center justify-between relative transition-all duration-300 ease-in-out`}
       >
         <button
           onClick={toggleSidebar}
-          className='text-slate-900 dark:text-white bg-slate-100 dark:bg-slate-900 focus:outline-none w-7 h-7 flex justify-center items-center border-slate-900 dark:border-white border rounded-full'
+          className={`${
+            isExpanded ? 'left-[93%]' : 'md:left-[45px]'
+          } flex justify-center items-center w-7 h-7 absolute top-96 border rounded-full transition-all duration-300 ease-in-out text-slate-900 dark:text-white bg-slate-100 dark:bg-slate-900 focus:outline-none border-slate-900 dark:border-white`}
         >
           {isExpanded ? (
             <FontAwesomeIcon icon={faChevronLeft} className='w-3 h-3' />
@@ -51,7 +53,11 @@ const Sidebar: React.FC = () => {
         className='flex-grow transition-transform'
         aria-label='Sidebar'
       >
-        <nav className='flex h-full flex-1 flex-col overflow-y-auto border-r border-slate-900 dark:border-white px-2 py-4 overflow-hidden'>
+        <nav
+          className={`${
+            isExpanded ? '' : ''
+          } flex h-full flex-1 flex-col overflow-y-auto border-r border-slate-900 dark:border-white px-2 py-4 overflow-hidden`}
+        >
           <NavLink
             to='/'
             className='flex py-6 px-3 items-center gap-2 transition-all duration-300'
@@ -237,7 +243,7 @@ const Sidebar: React.FC = () => {
             </li>
             <li
               className={`${
-                isExpanded ? 'space-x-4' : ''
+                isExpanded ? 'space-x-4' : 'hidden md:flex'
               } flex items-center justify-center transition-all duration-300`}
             >
               <Label

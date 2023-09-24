@@ -1,16 +1,19 @@
-import { project } from '../data/issueData';
+import {  useSelector } from 'react-redux';
 import { HomeIcon } from '@heroicons/react/20/solid';
-
+import { RootState } from '../store/store';
 interface BreadcrumbsProps {
   page: string;
 }
 
 const Breadcrumbs = (props: BreadcrumbsProps) => {
+
+  const kenbanState = useSelector((state: RootState) => state.kanban);
+
   return (
     <nav className='flex justify-center mb-6 h-9' aria-label='Breadcrumb'>
       <ol
         role='list'
-        className='flex space-x-4 rounded-md bg-slate-100 dark:bg-slate-900 border border-slate-400 dark:border px-6'
+        className='flex whitespace-nowrap md:space-x-4 rounded-md bg-slate-100 dark:bg-slate-900 border border-slate-400 dark:border px-6'
       >
         <li className='flex'>
           <div className='flex items-center'>
@@ -35,13 +38,13 @@ const Breadcrumbs = (props: BreadcrumbsProps) => {
             </svg>
             <a
               href='#'
-              className='ml-4 text-sm font-medium text-slate-600 hover:text-slate-600 dark:text-slate-100 dark:hover:text-slate-400'
+              className='ml-2 md:ml-4 text-xs md:text-sm font-medium text-slate-600 hover:text-slate-600 dark:text-slate-100 dark:hover:text-slate-400'
             >
               Projects
             </a>
           </div>
         </li>
-        <li key={project.name} className='flex'>
+        <li key={kenbanState.projectData.name} className='flex'>
           <div className='flex items-center'>
             <svg
               className='h-full w-6 flex-shrink-0 text-gray-400'
@@ -53,10 +56,15 @@ const Breadcrumbs = (props: BreadcrumbsProps) => {
               <path d='M.293 0l22 22-22 22h1.414l22-22-22-22H.293z' />
             </svg>
             <a
-              href={project.url}
-              className='ml-4 text-sm font-medium text-slate-600 hover:text-slate-600 dark:text-slate-100 dark:hover:text-slate-400'
+              href={kenbanState.projectData.url}
+              className='ml-2 md:ml-4 text-xs md:text-sm font-medium text-slate-600 hover:text-slate-600 dark:text-slate-100 dark:hover:text-slate-400'
             >
-              {project.name}
+              <span className='flex md:hidden'>
+                {kenbanState.projectData.name.length > 8
+                  ? kenbanState.projectData.name.slice(0, 8) + '...'
+                  : kenbanState.projectData.name}
+              </span>
+              <span className='hidden md:flex'>{kenbanState.projectData.name}</span>
             </a>
           </div>
         </li>
@@ -70,10 +78,10 @@ const Breadcrumbs = (props: BreadcrumbsProps) => {
           >
             <path d='M.293 0l22 22-22 22h1.414l22-22-22-22H.293z' />
           </svg>
-          <div className='flex items-center ml-4'>
+          <div className='flex items-center'>
             <a
               href='#'
-              className='ml-4 text-sm font-medium text-slate-500 hover:text-slate-600 dark:text-slate-300 dark:hover:text-slate-400'
+              className='ml-2 md:ml-4 text-xs md:text-sm font-medium text-slate-500 hover:text-slate-600 dark:text-slate-300 dark:hover:text-slate-400'
             >
               {props.page}
             </a>

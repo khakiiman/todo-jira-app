@@ -5,9 +5,9 @@ import DeveloperImage from '@/assets/me.jpg';
 
 function Main() {
   return (
-    <div className='flex justify-center bg-slate-300 dark:bg-slate-700 h-screen py-8 w-full dark:text-slate-100'>
-      <Card className='flex flex-col justify-between py-8 border border-slate-500 dark:border dark:border-slate-100 dark:bg-slate-900'>
-        <div className='flex flex-col max-w-4xl py-4 px-16 space-y-6'>
+    <div className='flex justify-center md:py-8 w-full min-h-screen bg-slate-300 dark:bg-slate-700 dark:text-slate-100'>
+      <Card className='flex flex-col rounded-none md:rounded-xl md:justify-between px-8 md:px-0 md:py-8 md:border md:border-slate-500 md:dark:border md:dark:border-slate-100 dark:bg-slate-900 gap-12 md:gap-0'>
+        <div className='flex flex-col max-w-4xl py-4 md:px-16 space-y-4 md:space-y-8'>
           <div className='text-center'>
             <img
               src={DeveloperImage}
@@ -15,19 +15,19 @@ function Main() {
               className='w-40 h-[148px] rounded-full mx-auto mb-2'
             />
           </div>
-          <Label className='pt-4 text-2xl font-bold'>Iman K. Arvand</Label>
-          <Label className='text-slate-500 text-sm'>Frontend Developer</Label>
-          <Label className='text-md leading-normal text-justify'>
+          <Label className='pt-2 md:pt-4 text-xl md:text-2xl font-bold text-center md:text-left'>Iman K. Arvand</Label>
+          <Label className='text-slate-500 text-xs md:text-sm text-center md:text-left'>Frontend Developer</Label>
+          <Label className='text-sm md:text-lg leading-normal text-center md:text-justify'>
             Hi, I'm Iman K. Arvand, the developer behind this TodoList app. I'm
             passionate about web development and have a strong interest in
             modern technologies like react, next, typescript and tailwindcss.
           </Label>
-          <Label className='text-md leading-normal text-justify'>
+          <Label className='text-sm md:text-lg leading-normal text-center md:text-justify'>
             My goal is to create user-friendly and efficient web applications.
             I'm constantly learning and exploring new tools and techniques to
             improve my skills.
           </Label>
-          <Label className='text-md leading-normal text-justify'>
+          <Label className='text-sm md:text-lg leading-normal text-justify'>
             If you have any questions, suggestions, or just want to say hello,
             please feel free to reach out to me. You can contact me via email at
             ikhaki71@gmail.com.
@@ -40,7 +40,7 @@ function Main() {
           >
             Contact Developer
           </Button>
-          <Label className='text-gray-500 text-sm text-center'>
+          <Label className='text-gray-500 text-sm text-center md:text-left'>
             Disclaimer: This developer profile is for demonstration purposes
             only.
           </Label>
