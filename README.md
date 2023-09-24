@@ -1,3 +1,5 @@
+![alt text](https://github.com/khakiiman/todo-jira-app/blob/main/src/assets/Intro.png?raw=true)
+
 # Todo-Jira-App
 
 A web application for task management with Kanban boards and To-Do list.
