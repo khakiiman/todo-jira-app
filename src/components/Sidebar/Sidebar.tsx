@@ -27,7 +27,7 @@ const Sidebar: React.FC = () => {
     <div
       className={`${
         isExpanded ? 'w-64' : 'w-4 md:w-16'
-      } flex fixed md:relative flex-col h-screen bg-slate-100 dark:bg-slate-900 transition-all duration-300 ease-in-out`}
+      } flex fixed md:relative flex-col h-screen bg-slate-100 dark:bg-slate-900 transition-all duration-300 ease-in-out z-40`}
     >
       <div
         className={`${
@@ -174,6 +174,7 @@ const Sidebar: React.FC = () => {
                               : 'text-slate-900'
                           }`
                     }`}
+                    onClick={() => setIsExpanded(!isExpanded)}
                   >
                     <FontAwesomeIcon icon={faBlackboard} className='h-5 w-5' />
                     <span
@@ -201,6 +202,7 @@ const Sidebar: React.FC = () => {
                               : 'text-slate-900'
                           }`
                     }`}
+                    onClick={() => setIsExpanded(!isExpanded)}
                   >
                     <FontAwesomeIcon icon={faCogs} className='h-5 w-5' />
                     <span
@@ -228,6 +230,7 @@ const Sidebar: React.FC = () => {
                               : 'text-slate-900'
                           }`
                     }`}
+                    onClick={() => setIsExpanded(!isExpanded)}
                   >
                     <FontAwesomeIcon icon={faTasks} className='h-5 w-5' />
                     <span
@@ -281,7 +284,7 @@ const Sidebar: React.FC = () => {
                 Theme
               </Label>
             </li>
-            <li className='flex justify-center items-end gap-4 h-full'>
+            <li className='flex justify-center items-end gap-4 h-full bg-slate-100 dark:bg-slate-900 '>
               <NavLink
                 to='/user'
                 className={`${
@@ -299,6 +302,7 @@ const Sidebar: React.FC = () => {
                           : 'text-slate-900'
                       }`
                 }`}
+                onClick={() => setIsExpanded(!isExpanded)}
               >
                 <img
                   className='h-8 w-8 rounded-full bg-yellow-500'

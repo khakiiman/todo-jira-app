@@ -6,7 +6,7 @@ import DeveloperImage from '@/assets/me.jpg';
 function Main() {
   return (
     <div className='flex justify-center md:py-8 w-full min-h-screen bg-slate-300 dark:bg-slate-700 dark:text-slate-100'>
-      <Card className='flex flex-col rounded-none md:rounded-xl md:justify-between px-8 md:px-0 md:py-8 md:border md:border-slate-500 md:dark:border md:dark:border-slate-100 dark:bg-slate-900 gap-12 md:gap-0'>
+      <Card className='flex flex-col rounded-none md:rounded-xl md:justify-between px-8 md:px-0 md:py-8 md:border md:border-slate-500 md:dark:border md:dark:border-slate-100 bg-slate-100 dark:bg-slate-900 gap-12 md:gap-0'>
         <div className='flex flex-col max-w-4xl py-4 md:px-16 space-y-4 md:space-y-8'>
           <div className='text-center'>
             <img
