@@ -24,13 +24,13 @@ import {
 } from '../ui/form';
 import { useToast } from '../ui/use-toast';
 
-import { ProjectFormSchema } from '../../models/Project';
-import type { ProjectForm } from '../../models/Project';
+import { ProjectSchema } from '../../models/Project';
+import type { Project } from '../../models/Project';
 import { RootState } from '../../store/store';
 import { updateProjectData } from '../../store/kanbanSlice';
 import Breadcrumbs from '../Breadcrumbs';
 
-import '../../../node_modules/react-quill/dist/quill.snow.css';
+// import '../../styles/quill.snow.css';
 
 const options = [
   { value: 'Software', label: 'Software' },
@@ -43,14 +43,14 @@ const ProjectSettings: React.FC = () => {
 
   const dispatch = useDispatch();
 
-  const kenbanState = useSelector((state: RootState) => state.kanban);
+  const KanbanState = useSelector((state: RootState) => state.kanban);
 
-  const form = useForm<ProjectForm>({
-    resolver: zodResolver(ProjectFormSchema),
-    defaultValues: kenbanState.projectData,
+  const form = useForm<Project>({
+    resolver: zodResolver(ProjectSchema),
+    defaultValues: KanbanState.project,
   });
 
-  const onSubmit: SubmitHandler<ProjectForm> = () => {
+  const onSubmit: SubmitHandler<Project> = () => {
     dispatch(updateProjectData(form.getValues()));
     console.log(form.getValues());
   };
@@ -61,7 +61,7 @@ const ProjectSettings: React.FC = () => {
         onSubmit={form.handleSubmit(onSubmit)}
         className='flex justify-center md:py-8 w-full h-min-screen px-16 bg-slate-300 dark:bg-slate-700 dark:text-slate-100'
       >
-        <Card className='flex flex-col rounded-none md:rounded-xl py-4 px-8 md:border md:border-slate-500 md:dark:border md:dark:border-slate-100 gap-8 bg-slate-100 dark:bg-slate-900'>
+        <Card className='flex flex-col rounded-none md:rounded-xl py-4 px-8 md:border md:border-slate-500 md:dark:border md:dark:border-slate-100 gap-4 bg-slate-100 dark:bg-slate-900'>
           <div>
             <Breadcrumbs page='Project Details' />
           </div>

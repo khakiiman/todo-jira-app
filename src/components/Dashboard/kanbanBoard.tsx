@@ -9,27 +9,26 @@ import { Card } from '../ui/card';
 import Breadcrumbs from '../Breadcrumbs';
 import NewIssueModal from '../NewIssueModal';
 import IssueList from './IssueList';
-import '../../../node_modules/react-quill/dist/quill.snow.css';
 
 const KanbanBoard: React.FC = () => {
   const { toast } = useToast();
-  const [filterValue, setFilteredValue] = useState('');
-  const [isModelOpen, setModalState] = useState(false);
+  const [filteredValue, setFilteredValue] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      dispatch(changeSearchTerm(filterValue));
+      dispatch(changeSearchTerm(filteredValue));
     }, 300);
 
     return () => {
       clearTimeout(timeout);
     };
-  }, [dispatch, filterValue]);
+  }, [dispatch, filteredValue]);
 
   return (
     <div className='flex w-full min-h-screen md:px-16 md:py-8 dark:text-white justify-center bg-slate-300 dark:bg-slate-700'>
-      <Card className='w-full border border-slate-500 dark:border dark:border-slate-100 px-8 py-8 space-y-10 overflow-y-scroll scrollbar-hide'>
+      <Card className='w-full border border-slate-500 dark:border bg-slate-100 dark:border-slate-100 px-8 py-8 space-y-10 overflow-y-scroll scrollbar-hide'>
         <Breadcrumbs page='Kanban Board' />
         <h1 className='text-2xl font-bold capitalize dark:text-gray-300'>
           Kanban Board
@@ -40,7 +39,7 @@ const KanbanBoard: React.FC = () => {
               type='search'
               className='px-2 py-2 w-[230px] border border-slate-400 dark:border dark:border-slate-400'
               placeholder='Search Issues...'
-              value={filterValue}
+              value={filteredValue}
               onChange={(event) => {
                 setFilteredValue(event.target.value);
               }}
@@ -75,7 +74,7 @@ const KanbanBoard: React.FC = () => {
               type='submit'
               className='flex justify-end items-center w-32 text-xs md:text-sm md:w-full text-white hover:bg-slate-900 bg-slate-700 dark:text-slate-900 dark:bg-slate-100 dark:hover:bg-slate-300'
               onClick={() => {
-                setModalState(true);
+                setIsModalOpen(true);
               }}
             >
               Create New Issue
@@ -83,11 +82,11 @@ const KanbanBoard: React.FC = () => {
           </div>
         </div>
 
-        {/* issue list component */}
+        {/* Kanban Board columns like Backlog, Develoment, in Progress and Done*/}
         <IssueList />
 
-        {/* new issue modal */}
-        <NewIssueModal />
+        {/* Create New Issue Modal */}
+        <NewIssueModal show={isModalOpen} close={() => setIsModalOpen(false)} />
       </Card>
     </div>
   );

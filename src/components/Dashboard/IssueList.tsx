@@ -1,6 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+// imported packages
 import { useState } from 'react';
-import { users } from '../../data/issueData';
+import { useDispatch, useSelector } from 'react-redux';
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+
+// imported icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCheckSquare,
@@ -9,45 +12,60 @@ import {
   faUpLong,
   faDownLong,
 } from '@fortawesome/free-solid-svg-icons';
-import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
-import { useDispatch, useSelector } from 'react-redux';
-import { sortDragData } from '../../store/kanbanSlice';
+
+// imported components
 import ModalComponent from '../Modal';
 
-const IssueStatusCopy = {
-  BACKLOG: 'Backlog',
-  SELECTED: 'development',
-  INPROGRESS: 'In progress',
-  DONE: 'Done',
-};
+// imported store files
+import { sortDragData } from '../../store/kanbanSlice';
+import { RootState } from '../../store/store';
 
+// imported models
+import type { Issue } from '../../models/Issue';
+
+// types
+enum IssueStatusCopy {
+  BACKLOG = 'Backlog',
+  SELECTED = 'Development',
+  INPROGRESS = 'In progress',
+  DONE = 'Done',
+}
 interface ModalData {
-  id: string;
-  isModelOpen: boolean;
+  issueData: Issue;
+  isModalOpen: boolean;
 }
 
 function IssueList() {
-  const [modelData, setModalData] = useState<ModalData>({
-    id: '',
-    isModelOpen: false,
-  });
   const dispatch = useDispatch();
-
-  const listOfIssues = useSelector((state: any) => {
-    return state.kanban.data.filter((issue: any) =>
-      issue.title.toLowerCase().includes(state.kanban.searchTerm.toLowerCase())
-    );
+  const kanbanState = useSelector((state: RootState) => state.kanban);
+  const [modalData, setModalData] = useState<ModalData>({
+    issueData: {
+      id: Number(''),
+      type: '',
+      reporter: '',
+      assignee: '',
+      priority: '',
+      description: '',
+      title: '',
+      status: 'backlog',
+      userIds: [],
+    },
+    isModalOpen: false,
   });
 
-  const renderIssueUsers = (issueList: any) => {
+  const listOfIssues = kanbanState.issue.filter((issue: Issue) =>
+    issue.title.toLowerCase().includes(kanbanState.searchTerm.toLowerCase())
+  );
+
+  const renderIssueUsers = (issueList: Issue) => {
     if (!issueList.userIds) {
       return;
     }
-    return users.map(
+    return kanbanState.user.map(
       (user) =>
         issueList.userIds.includes(user.id) && (
           <img
-            className='flex w-8 rounded-full border border-slate-900 dark:border dark:border-slate-100'
+            className='flex w-8 rounded-full'
             src={user.avatarUrl}
             alt=''
             key={user.id}
@@ -78,11 +96,11 @@ function IssueList() {
                   ref={provided.innerRef}
                 >
                   <h5 className='text-slate-100 dark:text-slate-100 font-bold tracking-wide mb-4 text-center uppercase'>
-                    {IssueStatusCopy[issue]}
+                    {IssueStatusCopy[issue as keyof typeof IssueStatusCopy]}
                   </h5>
 
                   {listOfIssues.map(
-                    (issueList: any) =>
+                    (issueList: Issue) =>
                       issueList.status
                         .toLowerCase()
                         .includes(issue.toLowerCase()) && (
@@ -94,13 +112,14 @@ function IssueList() {
                           {(provided: any) => (
                             <div
                               className='flex flex-col bg-slate-100 dark:bg-slate-900 p-4 rounded-lg mb-[0.5rem]'
+                              key={issueList.id}
                               {...provided.draggableProps}
                               {...provided.dragHandleProps}
                               ref={provided.innerRef}
                               onClick={() => {
                                 setModalData({
-                                  id: issueList.id.toString(),
-                                  isModelOpen: true,
+                                  issueData: issueList,
+                                  isModalOpen: true,
                                 });
                               }}
                             >
@@ -128,7 +147,7 @@ function IssueList() {
                                       color='red'
                                     />
                                   )}
-                                  {issueList.priority > 2 ? (
+                                  {Number(issueList.priority) > 2 ? (
                                     <FontAwesomeIcon
                                       icon={faUpLong}
                                       color='red'
@@ -158,10 +177,10 @@ function IssueList() {
       </DragDropContext>
       {
         <ModalComponent
-          issueData={modelData.id}
-          show={modelData.isModelOpen}
+          issueData={modalData.issueData}
+          show={modalData.isModalOpen}
           close={() => {
-            setModalData({ id: '', isModelOpen: false });
+            setModalData({ ...modalData, isModalOpen: false });
           }}
         />
       }

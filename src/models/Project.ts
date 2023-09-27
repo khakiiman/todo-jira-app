@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
-export const ProjectFormSchema = z.object({
-  id: z.number().optional(),
+export const ProjectSchema = z.object({
+  id: z.number(),
   name: z
     .string()
     .trim()
@@ -18,4 +18,4 @@ export const ProjectFormSchema = z.object({
   updatedAt: z.string().optional(),
 });
 
-export type ProjectForm = z.infer<typeof ProjectFormSchema>;
+export type Project = z.infer<typeof ProjectSchema>;

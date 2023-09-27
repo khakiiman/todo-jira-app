@@ -1,95 +1,112 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState, useEffect } from 'react';
+// imported packages
+import React from 'react';
+// import { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import ReactQuill from 'react-quill';
-import { useDispatch } from 'react-redux';
+
+// imported icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faSortUp,
-  faSortDown,
-  // faCheckSquare,
-  // faBook,
-  // faExclamationCircle,
-  // faTrashAlt,
-  // faTimes,
-  // faTrashCan,
-  // faXmark,
-  // faUpLong,
-  // faDownLong,
+  faCheckSquare,
+  faBook,
+  faExclamationCircle,
+  faDownLong,
+  faUpLong,
 } from '@fortawesome/free-solid-svg-icons';
-// imported components
-import { users } from '../data/issueData';
-import { updateIssueData } from '../store/kanbanSlice';
 
+// imported components
 import { Button } from './ui/button';
 import { Input } from './ui/input';
+import { useToast } from '../components/ui/use-toast';
+import { Label } from './ui/label';
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
-} from './ui/dialog';
-import { Label } from './ui/label';
+  DialogDescription,
+  DialogFooter,
+} from '../components/ui/dialog';
+import {
+  Form,
+  FormLabel,
+  FormField,
+  FormControl,
+  FormDescription,
+  FormItem,
+} from '../components/ui/form';
 import {
   DropdownMenu,
-  DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from './ui/dropdown-menu';
+  DropdownMenuContent,
+} from '../components/ui/dropdown-menu';
 
-// styles
+// imported styles
 import '../../node_modules/react-quill/dist/quill.snow.css';
+
+// imported store files
+import { RootState } from '../store/store';
+import { updateIssueData, deleteIssue } from '../store/kanbanSlice';
+
+// imported models
+import { IssueSchema } from '../models/Issue';
+import type { Issue } from '../models/Issue';
+
 // types
-import type { Issue } from '../data/issueData';
 type ModalProps = {
+  issueData: Issue;
   show: boolean;
   close: () => void;
-  issueData: Issue;
 };
 
 const ModalComponent: React.FC<ModalProps> = (props) => {
-  // overlay for modal
   const overlay = document.getElementById('overlays');
-
   // state handlers
-  const [modalData, setModalData] = useState(props.issueData);
-  useEffect(() => {
-    setModalData(props.issueData);
-  }, [props]);
-
+  const { toast } = useToast();
   const dispatch = useDispatch();
-  const issueType = modalData?.type;
-  const issueStatus = modalData?.status;
+  const kanbanState = useSelector((state: RootState) => state.kanban);
 
-  const changeValue = ($event: any, type: string) => {
-    if (type === 'title') {
-      dispatch(
-        updateIssueData({
-          id: modalData?.id,
-          value: $event.target?.value,
-          type: type,
-        })
-      );
-      setModalData({ ...modalData, title: $event.target?.value });
-    } else if ($event.target?.innerText !== undefined) {
-      dispatch(
-        updateIssueData({
-          id: modalData?.id,
-          value: $event.target?.innerText,
-          type: type,
-        })
-      );
-    }
-    if (type === 'description') {
-      dispatch(
-        updateIssueData({ id: modalData?.id, value: $event, type: type })
-      );
-      setModalData({ ...modalData, description: $event });
-    }
+  const form = useForm<Issue>({
+    resolver: zodResolver(IssueSchema),
+    values: props.issueData,
+  });
+
+  const issueTypeToButtonVariant: any = {
+    task: 'primary',
+    story: 'tertiary',
+    bug: 'destructive',
+  };
+  const priorityNumberToLevel: any = {
+    '1': 'Highest',
+    '2': 'High',
+    '3': 'Medium',
+    '4': 'Low',
+    '5': 'Lowest',
+  };
+  const priorityNumberToButtonVariant: any = {
+    '1': 'destructive',
+    '2': 'destructive',
+    '3': 'secondary',
+    '4': 'tertiary',
+    '5': 'tertiary',
+  };
+  const findUserImageURL = (userName: string) => {
+    const user = kanbanState.user.find((user) => user.name === userName);
+    return user ? user.avatarUrl : '';
+  };
+
+  const onSubmit: SubmitHandler<Issue> = () => {
+    dispatch(updateIssueData(form.getValues()));
+    toast({
+      title: 'Issue has been edited successfully',
+      description: new Date().toLocaleString(),
+    });
+    props.close();
+    // console.log('form.getValues()', form.getValues());
   };
 
   return (
@@ -97,178 +114,327 @@ const ModalComponent: React.FC<ModalProps> = (props) => {
       {overlay &&
         ReactDOM.createPortal(
           <Dialog open={props.show}>
-            <div className='w-[80%] self-center'>
-              {/* <DialogHeader>
-                <div className='issue-type'>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger>
-                      <Button
-                        variant={`${
-                          issueType === 'TASK'
-                            ? 'default'
-                            : issueType === 'STORY'
-                            ? 'outline'
-                            : 'destructive'
-                        }`}
-                      >
-                        {issueType?.toUpperCase()}-{modalData?.id}
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent>
-                      <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                      <DropdownMenuSeparator />
-                      <DropdownMenuItem>
-                        <FontAwesomeIcon
-                          icon={faCheckSquare}
-                          color='deepskyblue'
-                        />{' '}
-                        TASK
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <FontAwesomeIcon icon={faBook} color='deepskyblue' />{' '}
-                        STORY
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <FontAwesomeIcon
-                          icon={faExclamationCircle}
-                          color='deepskyblue'
-                        />{' '}
-                        BUG
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </div>
-                <div className='issue-actions' onClick={props.close}>
-                  <Button variant='outline'>
-                    <FontAwesomeIcon icon={faTrashAlt} color='black' />
-                  </Button>
-                  <Button variant='outline' onClick={props.close}>
-                    <FontAwesomeIcon icon={faTimes} color='black' />
-                  </Button>
-                </div>
-              </DialogHeader> */}
-              <DialogContent>
-                <div className='flex'>
-                  <div className='w-3/4'>
-                    <ReactQuill
-                      placeholder='Short Summary'
-                      theme='snow'
-                      style={{ height: '10rem' }}
-                      className='border-none text-[1.2rem] h-[30%] resize-none w-[100%] font-semibold mb-[0.5rem]'
-                      defaultValue={modalData?.title}
-                      onBlur={($event) => changeValue($event, 'title')}
-                    />
-                    <Label>Description</Label>
-                    <div className='quill'>
-                      <ReactQuill
-                        theme='snow'
-                        className='border-none text-[1.2rem] h-[30%] resize-none w-[100%] font-semibold mb-[0.5rem]'
-                        defaultValue={modalData?.description}
-                        onChange={($event) =>
-                          changeValue($event, 'description')
-                        }
-                      />
+            <DialogContent className='text-slate-900 dark:text-slate-100 bg-slate-100 dark:bg-slate-900 sm:max-w-lg'>
+              <Form {...form}>
+                <form
+                  onSubmit={form.handleSubmit(onSubmit)}
+                  className='flex flex-col justify-center gap-6 w-full h-min-screen text-slate-900 dark:text-slate-100'
+                >
+                  <DialogHeader className='flex gap-2'>
+                    <DialogTitle>Edit Issue</DialogTitle>
+                    <DialogDescription>
+                      You can Edit issue in this dialog.
+                    </DialogDescription>
+                    <div className='flex items-center justify-between'>
+                      <div className='flex flex-col justify-center gap-2 space-y-4'>
+                        <div className='flex items-center gap-2'>
+                          <Label className='font-bold'>Issue Type:</Label>
+                          <DropdownMenu>
+                            <DropdownMenuTrigger>
+                              <Button
+                                variant={
+                                  issueTypeToButtonVariant[form.watch('type')]
+                                }
+                                className='h-10'
+                              >
+                                {form.watch('type').toUpperCase()}-
+                                {form.watch('id')}
+                              </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent>
+                              <DropdownMenuItem
+                                className='flex gap-2'
+                                onClick={() => {
+                                  form.setValue('type', 'task');
+                                }}
+                              >
+                                <FontAwesomeIcon
+                                  icon={faCheckSquare}
+                                  color='deepskyblue'
+                                />
+                                <span>TASK</span>
+                              </DropdownMenuItem>
+                              <DropdownMenuItem
+                                className='flex gap-2'
+                                onClick={() => {
+                                  form.setValue('type', 'story');
+                                }}
+                              >
+                                <FontAwesomeIcon icon={faBook} color='green' />
+                                <span>STORY</span>
+                              </DropdownMenuItem>
+                              <DropdownMenuItem
+                                className='flex gap-2'
+                                onClick={() => {
+                                  form.setValue('type', 'bug');
+                                }}
+                              >
+                                <FontAwesomeIcon
+                                  icon={faExclamationCircle}
+                                  color='red'
+                                />
+                                <span>BUG</span>
+                              </DropdownMenuItem>
+                            </DropdownMenuContent>
+                          </DropdownMenu>
+                        </div>
+                        <div className='flex items-center gap-2'>
+                          <Label className='font-bold'>Priority Level:</Label>
+                          <DropdownMenu>
+                            <DropdownMenuTrigger>
+                              <Button
+                                className='h-10 flex items-center gap-2'
+                                variant={
+                                  priorityNumberToButtonVariant[
+                                    form.watch('priority')
+                                  ]
+                                }
+                              >
+                                <span className='text-md uppercase'>
+                                  {form.watch('priority') === '1'
+                                    ? priorityNumberToLevel['1']
+                                    : form.watch('priority') === '2'
+                                    ? priorityNumberToLevel['2']
+                                    : form.watch('priority') === '3'
+                                    ? priorityNumberToLevel['3']
+                                    : form.watch('priority') === '4'
+                                    ? priorityNumberToLevel['4']
+                                    : form.watch('priority') === '5'
+                                    ? priorityNumberToLevel['5']
+                                    : ''}
+                                </span>
+                                <FontAwesomeIcon
+                                  icon={
+                                    form.watch('priority') === '1' ||
+                                    form.watch('priority') === '2' ||
+                                    form.watch('priority') === '3'
+                                      ? faUpLong
+                                      : faDownLong
+                                  }
+                                />
+                              </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent>
+                              <DropdownMenuItem
+                                className='flex gap-2'
+                                onClick={() => {
+                                  form.setValue('priority', '1');
+                                }}
+                              >
+                                <FontAwesomeIcon
+                                  icon={faUpLong}
+                                  color='#ef4444'
+                                />
+                                <span>Highest</span>
+                              </DropdownMenuItem>
+                              <DropdownMenuItem
+                                className='flex gap-2'
+                                onClick={() => {
+                                  form.setValue('priority', '2');
+                                }}
+                              >
+                                <FontAwesomeIcon
+                                  icon={faUpLong}
+                                  color='#ef4444'
+                                />
+                                <span>High</span>
+                              </DropdownMenuItem>
+                              <DropdownMenuItem
+                                className='flex gap-2'
+                                onClick={() => {
+                                  form.setValue('priority', '3');
+                                }}
+                              >
+                                <FontAwesomeIcon
+                                  icon={faUpLong}
+                                  color='#d97706'
+                                />
+                                <span>Medium</span>
+                              </DropdownMenuItem>
+                              <DropdownMenuItem
+                                className='flex gap-2'
+                                onClick={() => {
+                                  form.setValue('priority', '4');
+                                }}
+                              >
+                                <FontAwesomeIcon
+                                  icon={faDownLong}
+                                  color='#22c55e'
+                                />
+                                <span>Low</span>
+                              </DropdownMenuItem>
+                              <DropdownMenuItem
+                                className='flex gap-2'
+                                onClick={() => {
+                                  form.setValue('priority', '5');
+                                }}
+                              >
+                                <FontAwesomeIcon
+                                  icon={faDownLong}
+                                  color='#22c55e'
+                                />
+                                <span>Lowest</span>
+                              </DropdownMenuItem>
+                            </DropdownMenuContent>
+                          </DropdownMenu>
+                        </div>
+                      </div>
+                      <div className='flex flex-col justify-center gap-2 space-y-4'>
+                        <div className='flex items-center gap-2'>
+                          <Label className='font-bold'>Reporter:</Label>
+                          <DropdownMenu>
+                            <DropdownMenuTrigger>
+                              <Button
+                                variant='outline'
+                                className='h-10 border border-slate-400'
+                              >
+                                {form.watch('reporter') && (
+                                  <img
+                                    className='rounded-full'
+                                    src={findUserImageURL(
+                                      form.watch('reporter')
+                                    )}
+                                    width='32px'
+                                    height='32px'
+                                  />
+                                )}
+                                {form.watch('reporter')}
+                              </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent>
+                              {kanbanState.user.map((user, index) => (
+                                <DropdownMenuItem
+                                  onClick={() => {
+                                    form.setValue('reporter', user.name);
+                                  }}
+                                  className='flex items-center gap-2 border-slate-400'
+                                  key={index}
+                                >
+                                  <img
+                                    className='rounded-full'
+                                    src={user.avatarUrl}
+                                    width='32px'
+                                    height='32px'
+                                  />
+                                  <Label>{user.name}</Label>
+                                </DropdownMenuItem>
+                              ))}
+                            </DropdownMenuContent>
+                          </DropdownMenu>
+                        </div>
+                        <div className='flex items-center gap-2'>
+                          <Label className='font-bold'>Assignee:</Label>
+                          <DropdownMenu>
+                            <DropdownMenuTrigger>
+                              <Button
+                                variant='outline'
+                                className='h-10 border border-slate-400'
+                              >
+                                {form.watch('assignee') && (
+                                  <img
+                                    className='rounded-full'
+                                    src={findUserImageURL(
+                                      form.watch('assignee')
+                                    )}
+                                    width='32px'
+                                    height='32px'
+                                  />
+                                )}
+                                {form.watch('assignee')}
+                              </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent>
+                              {kanbanState.user.map((user, index) => (
+                                <DropdownMenuItem
+                                  onClick={() => {
+                                    form.setValue('assignee', user.name);
+                                  }}
+                                  className='flex items-center gap-2 border-slate-400'
+                                  key={index}
+                                >
+                                  <img
+                                    className='rounded-full'
+                                    src={user.avatarUrl}
+                                    width='32px'
+                                    height='32px'
+                                  />
+                                  <Label>{user.name}</Label>
+                                </DropdownMenuItem>
+                              ))}
+                            </DropdownMenuContent>
+                          </DropdownMenu>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  <div className='pl-[1rem] w-1/4'>
-                    <Label className='mt-[0.5rem] mr-0 mb-[0.2rem] ml-[0.5rem]'>
-                      STATUS
-                    </Label>
-                    <DropdownMenu>
-                      <DropdownMenuTrigger>
-                        <Button
-                          variant={`${
-                            issueStatus === 'inprogress'
-                              ? 'default'
-                              : issueStatus === 'DONE'
-                              ? 'outline'
-                              : 'secondary'
-                          }`}
-                        >
-                          {issueStatus?.toUpperCase()}
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent>
-                        <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem>DONE</DropdownMenuItem>
-                        <DropdownMenuItem>BACKLOG</DropdownMenuItem>
-                        <DropdownMenuItem>
-                          SELECTED FOR DEVELOPMENT
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>IN PROGRESS</DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                    <Label className='mt-[0.5rem] mr-0 mb-[0.2rem] ml-[0.5rem]'>
-                      ASSIGNEES
-                    </Label>
-                    <DropdownMenu>
-                      <DropdownMenuTrigger>
-                        <Button variant='outline'>{users[0].name}</Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent>
-                        <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                        <DropdownMenuSeparator />
-                        {users.map((user) => (
-                          <DropdownMenuItem key={user.name}>
-                            <img
-                              src={user.avatarUrl}
-                              alt={user.name}
-                              width='10%'
-                              height='10%'
+                  </DialogHeader>
+
+                  <div className='flex flex-col w-full space-y-4 '>
+                    <FormField
+                      control={form.control}
+                      name='title'
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className='capitalize font-bold'>
+                            Issue Title
+                          </FormLabel>
+                          <FormControl className='mt-4'>
+                            <Input
+                              {...field}
+                              className='border-slate-400'
+                              defaultValue={props.issueData?.title}
                             />
-                            <label>{user.name}</label>
-                          </DropdownMenuItem>
-                        ))}
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                    <Label className='mt-[0.5rem] mr-0 mb-[0.2rem] ml-[0.5rem]'>
-                      PRIORITY
-                    </Label>
-                    <DropdownMenu>
-                      <DropdownMenuTrigger>
-                        <Button
-                          variant={`${
-                            parseInt(modalData?.priority) > 2
-                              ? 'destructive'
-                              : 'outline'
-                          }`}
-                        >
-                          {parseInt(modalData?.priority) > 2 ? 'High' : 'Low'}
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent>
-                        <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem>
-                          <FontAwesomeIcon icon={faSortUp} color='red' />{' '}
-                          Highest
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>
-                          <FontAwesomeIcon icon={faSortUp} color='red' /> High
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>
-                          <FontAwesomeIcon icon={faSortUp} color='orange' />{' '}
-                          Medium
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>
-                          <FontAwesomeIcon icon={faSortDown} color='green' />{' '}
-                          Low
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>
-                          <FontAwesomeIcon icon={faSortDown} color='green' />{' '}
-                          Lowest
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                    <Label className='mt-[0.5rem] mr-0 mb-[0.2rem] ml-[0.5rem]'>
-                      ORIGINAL ESTIMATE (HOURS)
-                    </Label>
-                    <Input type='text' value='12' disabled />
+                          </FormControl>
+                          <FormDescription>
+                            Concisely summarize the issue in one or two
+                            sentences.
+                          </FormDescription>
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name='description'
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className='capitalize font-bold'>
+                            Project Description
+                          </FormLabel>
+                          <FormControl className=''>
+                            <ReactQuill
+                              theme='snow'
+                              className='border-slate-400 pb-4'
+                              {...field}
+                              defaultValue={props.issueData?.description}
+                            />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
                   </div>
-                </div>
-              </DialogContent>
-            </div>
+                  <DialogFooter className='flex gap-2'>
+                    <Button
+                      variant='destructive'
+                      type='button'
+                      onClick={() => {
+                        dispatch(deleteIssue(props.issueData?.id));
+                        props.close();
+                      }}
+                    >
+                      Delete Issue
+                    </Button>
+                    <Button type='submit'>Save Changes</Button>
+                    <Button
+                      type='button'
+                      onClick={() => {
+                        props.close();
+                      }}
+                    >
+                      Close
+                    </Button>
+                  </DialogFooter>
+                </form>
+              </Form>
+            </DialogContent>
           </Dialog>,
           overlay
         )}

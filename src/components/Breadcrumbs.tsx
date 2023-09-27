@@ -44,7 +44,7 @@ const Breadcrumbs = (props: BreadcrumbsProps) => {
             </a>
           </div>
         </li>
-        <li key={kenbanState.projectData.name} className='flex'>
+        <li key={kenbanState.project.name} className='flex'>
           <div className='flex items-center'>
             <svg
               className='h-full w-6 flex-shrink-0 text-gray-400'
@@ -56,15 +56,15 @@ const Breadcrumbs = (props: BreadcrumbsProps) => {
               <path d='M.293 0l22 22-22 22h1.414l22-22-22-22H.293z' />
             </svg>
             <a
-              href={kenbanState.projectData.url}
+              href={kenbanState.project.url}
               className='ml-2 md:ml-4 text-xs md:text-sm font-medium text-slate-600 hover:text-slate-600 dark:text-slate-100 dark:hover:text-slate-400'
             >
               <span className='flex md:hidden'>
-                {kenbanState.projectData.name.length > 8
-                  ? kenbanState.projectData.name.slice(0, 8) + '...'
-                  : kenbanState.projectData.name}
+                {kenbanState.project.name.length > 8
+                  ? kenbanState.project.name.slice(0, 8) + '...'
+                  : kenbanState.project.name}
               </span>
-              <span className='hidden md:flex'>{kenbanState.projectData.name}</span>
+              <span className='hidden md:flex'>{kenbanState.project.name}</span>
             </a>
           </div>
         </li>
